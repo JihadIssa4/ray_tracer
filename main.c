@@ -23,13 +23,9 @@ int main(void)
 
     for (int y = 0; y < HEIGHT; y++)
     {
-        fprintf(stderr, "\rScanlines remaining: %d ", HEIGHT - y);
-        //write(2, "haha", 4);
-        int num = HEIGHT - y;
-        char *str = ft_itoa(num);
-        int len = ft_strlen(str);
-        write(2, str, len);
-        fflush(stdout);
+        //fprintf(stderr, "\rScanlines remaining: %d ", HEIGHT - y);
+        char *str = ft_itoa(HEIGHT - y);
+        write(2, str, ft_strlen(str));
 
         for (int x = 0; x < WIDTH; x++)
         {
