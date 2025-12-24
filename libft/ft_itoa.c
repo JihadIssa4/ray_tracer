@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:14:03 by jissa             #+#    #+#             */
-/*   Updated: 2025/05/30 18:06:20 by jissa            ###   ########.fr       */
+/*   Updated: 2025/12/24 18:15:54 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,4 @@ char	*ft_itoa(int n)
 	}
 	res[len] = nb + '0';
 	return (res);
-}
-
-int    main(void)
-{
-    int num = 0;
-    printf("%s\n", ft_itoa(num));
-    return (0);
 }

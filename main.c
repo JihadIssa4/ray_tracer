@@ -1,7 +1,7 @@
 #include "./minilibx-linux/mlx.h"
 #include <stdlib.h>
 #include <unistd.h>
-#include "libft/libft.h"
+#include "libft.h"
 
 #define WIDTH 256
 #define HEIGHT 256
@@ -23,9 +23,10 @@ int main(void)
 
     for (int y = 0; y < HEIGHT; y++)
     {
-        //fprintf(stderr, "\rScanlines remaining: %d ", HEIGHT - y);
+	write(2, "Remaining Lines: ", 17);
         char *str = ft_itoa(HEIGHT - y);
         write(2, str, ft_strlen(str));
+	write(1, "\n", 1);
 
         for (int x = 0; x < WIDTH; x++)
         {
@@ -41,8 +42,7 @@ int main(void)
             *(unsigned int *)(addr + y * line_len + x * (bpp / 8)) = color;
         }
     }
-    printf("%s\n", addr);
-    fprintf(stderr, "\rDone.\n");
+    write(2, "Done.", 5);
 
     mlx_put_image_to_window(mlx, win, img, 0, 0);
     mlx_loop(mlx);

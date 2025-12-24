@@ -1,4 +1,3 @@
 app:
 	cd minilibx-linux ; make; cd ..
-	cd libft ; make ; cd .. 
-	cc -Wall -Wextra -Werror test.c -Iminilibx-linux -Lminilibx-linux -lmlx -lX11 -lXext
+	cc -Wall -Wextra -Werror main.c libft.a -Iminilibx-linux -Lminilibx-linux -lmlx -lX11 -lXext
