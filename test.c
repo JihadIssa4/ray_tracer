@@ -5,9 +5,9 @@ int main(void)
 {
 	ui_mlxParams_t	mlx_params;
 
-	if (ui_initMlx(mlx_params, 256, 256, "MiniRT"))
+	if (ui_initMlx(&mlx_params, 256, 256, "MiniRT"))
 		return (err_msgReturnOne("mlx failure"));
-	ui_mlxRender(mlx_params);
+	ui_mlxRender(&mlx_params);
 }
 
 /*

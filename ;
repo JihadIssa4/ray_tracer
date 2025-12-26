@@ -24,21 +24,3 @@ void	err_writeStdErr(char *stderr_msg[], int n)
 		n--;
 	}
 }
-
-int execl(const char *file, const char *args, ...)
-{
-    va_list ap;
-    char *array[MAXARGS +1];
-    int argno = 0;
-
-
-    va_start(ap, args);
-    while (args != 0 && argno < MAXARGS)
-    {
-        array[argno++] = args;
-        args = va_arg(ap, const char *);
-    }
-    array[argno] = (char *) 0;
-    va_end(ap);
-    return execv(file, array);
-}
