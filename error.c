@@ -1,44 +1,25 @@
 #include <stdio.h>
 #include <unistd.h>
+#include <stdarg.h>
 #include "libft.h"
 
-int	err_msgReturnOne(char *msg)
+int	err_msgReturnOne(const char *msg)
 {
 	printf("Error: %s\n", msg);
 	return (1);
 }
 
-/*
-void	err_writeStdErr(char *stderr_msg)
+void	err_writeStdErr(const char *msg, int n, ...)
 {
-	write(2, stderr_msg, ft_strlen(stderr_msg));
-}
-*/
+	va_list	ap;
 
-void	err_writeStdErr(char *stderr_msg[], int n)
-{
+	va_start(ap, n);
 	while (n)
 	{
-		write(2, *stderr_msg, ft_strlen(*stderr_msg));
-		stderr_msg ++;
+		if (write(2, msg, ft_strlen(msg)) == -1)
+			return ;   // ENFORCE CONTRACT
+		msg = va_arg(ap, const char *);
 		n--;
 	}
-}
-
-int execl(const char *file, const char *args, ...)
-{
-    va_list ap;
-    char *array[MAXARGS +1];
-    int argno = 0;
-
-
-    va_start(ap, args);
-    while (args != 0 && argno < MAXARGS)
-    {
-        array[argno++] = args;
-        args = va_arg(ap, const char *);
-    }
-    array[argno] = (char *) 0;
-    va_end(ap);
-    return execv(file, array);
+	va_end(ap);
 }
