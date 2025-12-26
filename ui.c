@@ -1,6 +1,7 @@
 #include "./minilibx-linux/mlx.h"
 #include "ui.h"
 #include "error.h"
+#include "libft.h"
 
 int	ui_initMlx(ui_mlxParams_t *p, int w, int h, char *ttl)
 {
@@ -17,7 +18,7 @@ void	ui_mlxRender(ui_mlxParams_t *p)
 	mlx_loop(p->mlx);
 }
 
-int	ui_buildImg(char *buf);
+void	ui_buildImg(char *buf, int height, int weight) /// !!!!!!ARE WEIGHT AND HEIGHT RELATED TO MLX ? OR TO PREVIOUS WEIGHT AND HEIGJT
 {
 	int	y;
 	int	x;
@@ -26,16 +27,12 @@ int	ui_buildImg(char *buf);
 	y = 0;
 	while (y < height)
 	{
-		err_writeStdErr({"Remaining lines: ", ft_itoa(height - y), "\n"})
-		write(2, "Remaining Lines: ", 17);
-		char *str = ft_itoa(HEIGHT - y);
-		write(2, str, ft_strlen(str));
-		write(1, "\n", 1);
+		err_writeStdErr("Remaining lines ", 3, ft_itoa(height - y), "\n");
 		x = 0;
 		while (x < width)
 		{
-		    double r = (double)x / (WIDTH - 1);
-		    double g = (double)y / (HEIGHT - 1);
+		    double r = (double)x / (width - 1);
+		    double g = (double)y / (height - 1);
 		    double b = 0.0;
 
 		    int ir = (int)(255 * r); //255.999
@@ -43,10 +40,9 @@ int	ui_buildImg(char *buf);
 		    int ib = (int)(255 * b);
 
 		    int color = (ir << 16) | (ig << 8) | ib;
-		    *(unsigned int *)(addr + y * line_len + x * (bpp / 8)) = color;
+		    *(unsigned int *)(buf + y * line_len + x * (bpp / 8)) = color;
 		}
 		y ++;
-}
-write(2, "Done.", 5);
-
+	}
+	err_writeStdErr("Done\n", 1);
 }

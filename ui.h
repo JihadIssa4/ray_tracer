@@ -15,5 +15,5 @@ int	ui_initMlx(ui_mlxParams_t *params, int width, int height, char *title);
 
 void	ui_mlxRender(ui_mlxParams_t *params);
 
-int	ui_buildImg(char *buf);
+void	ui_buildImg(char *buf, int height, int weight);
 #endif
