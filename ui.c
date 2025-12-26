@@ -1,3 +1,5 @@
+#include "./minilibx-linux/mlx.h"
+
 int	ui_initMlx(mlxParams_t *p, int w, int h, char *ttl)
 {
     p->mlx = mlx_init();
@@ -7,4 +9,8 @@ int	ui_initMlx(mlxParams_t *p, int w, int h, char *ttl)
     return (p->mlx && p->img && p->buf);
 }
 
-int	ui_mlxRender(mlxParams_t *params);
+void	ui_mlxRender(mlxParams_t *p)
+{
+	mlx_put_image_to_window(p->mlx, p->win, p->img, 0, 0);
+	mlx_loop(p->mlx);
+}

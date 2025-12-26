@@ -10,4 +10,4 @@ typedef struct ui_mlxParams_s
 
 int	ui_initMlx(mlxParams_t *params, int width, int height, char *title);
 
-int	ui_mlxRender(mlxParams_t *params);
+void	ui_mlxRender(mlxParams_t *params);
