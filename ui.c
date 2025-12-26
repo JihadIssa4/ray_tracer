@@ -1,17 +1,10 @@
-#include "./minilibx-linux/mlx.h"
-
-void	*ui_init(char *windowTitle, int height, int width)
+int	ui_initMlx(mlxParams_t *p, int w, int h, char *ttl)
 {
-	void *mlx;
-	void *win;
-
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, width, height, windowTitle);
-	return (mlx_new_image(mlx, width, height));
+    p->mlx = mlx_init();
+    p->win = mlx_new_window(p->mlx, width, height, ttl);
+    p->img = mlx_new_image(mlx, width, height);
+    p->buf = mlx_get_data_addr(p->img, &p->bpp, &p->line_len, &p->endian);
+    return (p->mlx && p->img && p->buf);
 }
 
-char	*ui_getImgBuf(char *img)
-{
-	return (mlx_get_data_addr(img, 0, 0, 0));
-}
-
+int	ui_mlxRender(mlxParams_t *params);
