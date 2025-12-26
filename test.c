@@ -1,14 +1,26 @@
-#include "ui.h"
+#include "./minilibx-linux/mlx.h"
+#include <stdlib.h>
+#include <unistd.h>
+#include "libft.h"
+
+#define WIDTH 256
+#define HEIGHT 256
+
+#include <stdio.h>
 
 int main(void)
 {
-    void	*img;
-    char	*buf;
+    void *mlx;
+    void *win;
+    void *img;
+    char *buf;
+    int bpp, line_len, endian;
 
-    img = ui_init("MiniRT", 256, 256);
-    buf = ui_getImgBuf(img);
-}
-/*
+    mlx = mlx_init();
+    win = mlx_new_window(mlx, WIDTH, HEIGHT, "Gradient");
+    img = mlx_new_image(mlx, WIDTH, HEIGHT);
+    addr = mlx_get_data_addr(img, &bpp, &line_len, &endian);
+
     for (int y = 0; y < HEIGHT; y++)
     {
 	write(2, "Remaining Lines: ", 17);
@@ -36,4 +48,3 @@ int main(void)
     mlx_loop(mlx);
     return 0;
 }
-*/
