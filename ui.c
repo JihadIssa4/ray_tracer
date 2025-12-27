@@ -6,23 +6,25 @@
 int	ui_initMlx(ui_mlxParams_t *p, int w, int h, char *ttl)
 {
     p->mlx = mlx_init();
-    write(2, "1\n", 2);
     p->width = w;
-    write(2, "2\n", 2);
     p->height = h;
-    write(2, "3\n", 2);
     p->win = mlx_new_window(p->mlx, w, h, ttl);
-    write(2, "4\n", 2);
     p->img = mlx_new_image(p->mlx, w, h);
-    write(2, "5\n", 2);
     p->buf = mlx_get_data_addr(p->img, &p->bpp, &p->line_len, &p->endian);
-    write(2, "DONE", 4);
     return (!(p->mlx && p->img && p->buf));
+}
+
+int	key_hook(int keycode, void *mlx)
+{
+	if (keycode == 'q')
+		mlx_loop_end(mlx);
+	return (0);
 }
 
 void	ui_mlxRender(ui_mlxParams_t *p)
 {
 	mlx_put_image_to_window(p->mlx, p->win, p->img, 0, 0);
+	mlx_key_hook(p->win, key_hook, p->mlx);
 	mlx_loop(p->mlx);
 }
 
@@ -52,6 +54,7 @@ void	ui_buildImg(ui_mlxParams_t *p)
 
 		    int color = (ir << 16) | (ig << 8) | ib;
 		    *(unsigned int *)(p->buf + y * p->line_len + x * (p->bpp / 8)) = color;
+		    x ++;
 		}
 		y ++;
 	}
