@@ -11,32 +11,27 @@ char	*foo(int n)
 	write(1, &digit, 1);
 }
 
-int	fractionFactor(double n)
-{
-	int	factor;
-
-	factor = 10;
-	n *= factor;
-	while (((int)n) % 10)
-	{
-		factor *= 10;
-		n *= factor;
-	}
-	return (factor);
-}
-	
-char	*dtoi(double n)
+char	*
+char	*itoa(double n)
 {
 	double fractional;
+	int	n_precision;
 
-
+	n_precision = 16;
 	fractional = ((int)n) - n;
 	if (fractional < 0)
 		fractional *= -1;
+	while (n_precision)
+	{
+		fractional *= 10;
+		n_precision --;
+	}
+	while (!(fractional % 10))
+		fractional /= 10;
 	
 }
+
 int main()
 {
-	printf("%d\n", fractionFactor(1987.3993));
-	printf("%d\n", fractionFactor(1987.399));
+	printf("%zu\n", sizeof(double));	
 }
