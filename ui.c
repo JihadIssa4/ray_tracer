@@ -6,10 +6,18 @@
 int	ui_initMlx(ui_mlxParams_t *p, int w, int h, char *ttl)
 {
     p->mlx = mlx_init();
+    write(2, "1\n", 2);
+    p->width = w;
+    write(2, "2\n", 2);
+    p->height = h;
+    write(2, "3\n", 2);
     p->win = mlx_new_window(p->mlx, w, h, ttl);
+    write(2, "4\n", 2);
     p->img = mlx_new_image(p->mlx, w, h);
-    p->buf = mlx_get_data_addr(p->img, &p->bpp, &p->line_len, 0);
-    return (p->mlx && p->img && p->buf);
+    write(2, "5\n", 2);
+    p->buf = mlx_get_data_addr(p->img, &p->bpp, &p->line_len, &p->endian);
+    write(2, "DONE", 4);
+    return (!(p->mlx && p->img && p->buf));
 }
 
 void	ui_mlxRender(ui_mlxParams_t *p)
@@ -18,12 +26,15 @@ void	ui_mlxRender(ui_mlxParams_t *p)
 	mlx_loop(p->mlx);
 }
 
-void	ui_buildImg(char *buf, int height, int weight) /// !!!!!!ARE WEIGHT AND HEIGHT RELATED TO MLX ? OR TO PREVIOUS WEIGHT AND HEIGJT
+void	ui_buildImg(ui_mlxParams_t *p)
 {
 	int	y;
 	int	x;
-	char	*str;
+	int	height;
+	int	width;
 
+	height = p->height;
+	width = p->width;
 	y = 0;
 	while (y < height)
 	{
@@ -40,7 +51,7 @@ void	ui_buildImg(char *buf, int height, int weight) /// !!!!!!ARE WEIGHT AND HEI
 		    int ib = (int)(255 * b);
 
 		    int color = (ir << 16) | (ig << 8) | ib;
-		    *(unsigned int *)(buf + y * line_len + x * (bpp / 8)) = color;
+		    *(unsigned int *)(p->buf + y * p->line_len + x * (p->bpp / 8)) = color;
 		}
 		y ++;
 	}
