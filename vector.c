@@ -1,7 +1,3 @@
-#include "libft.h"
-#include "error.h"
-#include <unistd.h>
-
 int	vec_centerVec(vec_t *v)
 {
 	v->x = 0;
@@ -34,6 +30,7 @@ int	vec_scale(vec_t *r, double f, vec_t *v)
 	return (0);
 }
 
-void	vec_getCoord(vec_t *v)
+int	vec_toStr(vect_t *v)
 {
 	
+}
